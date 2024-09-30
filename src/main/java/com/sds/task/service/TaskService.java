@@ -43,12 +43,24 @@ public class TaskService {
 
     public Task updateTask(int taskId, String content, boolean isDone) {
         Optional<Task> optionalTask = this.taskRepository.findById((long) taskId);
-        optionalTask.orElseThrow(() -> new RuntimeException("Task not found"));
+        if (optionalTask.isEmpty()) {
+            return null; // 또는 예외를 던지지 않고 null을 반환
+        }
+        //optionalTask.orElseThrow(() -> new RuntimeException("Task not found"));
+
         optionalTask.get().setContents(content);
         optionalTask.get().setModifiedDate(LocalDateTime.now(ZoneOffset.UTC));
         optionalTask.get().setDone(isDone);
 
         return this.taskRepository.save(optionalTask.get());
+    }
+
+    public void deleteAllTasks() {
+        taskRepository.deleteAll();
+    }
+
+    public void deleteTask(int taskId) {
+        taskRepository.deleteById((long) taskId);
     }
 
 //    public void deleteTask(Long id) {

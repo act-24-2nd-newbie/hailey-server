@@ -68,6 +68,18 @@ public class TaskController {
         return taskService.getTask(taskId);
     }
 
+    @GetMapping("/delete")
+    public ResponseEntity<Void> deleteAllTasks() {
+        taskService.deleteAllTasks();
+        return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/delete/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable int taskId) {
+        taskService.deleteTask(taskId);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/update")
     public Task updateTask(@RequestBody String requestBody) throws JsonProcessingException {
 
@@ -81,7 +93,7 @@ public class TaskController {
         String content = rootNode.get("contents").asText();
         System.out.println("content: "+content);
 
-        boolean isDone = rootNode.get("done").asBoolean();
+        boolean isDone = rootNode.get("isDone").asBoolean();
         System.out.println("idDone: "+isDone);
         return taskService.updateTask(taskId, content, isDone);
     }

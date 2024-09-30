@@ -5,17 +5,6 @@
 
 GET http://localhost:8080/tasks/test
 
-
-#### POST
-POST http://localhost:8080/tasks/update
-Content-Type: application/json
-
-{
-  "id" : "1",
-  "contents" : "hello spring",
-  "isDone" : "true"
-}
-
 #### POST
 #POST http://localhost:8080/tasks/create
 #Content-Type: application/json
@@ -32,10 +21,20 @@ Content-Type: application/json
 #"contents" : "hello autum"
 #}
 
-### POST
-POST http://localhost:8080/tasks/create
+#### POST
+#POST http://localhost:8080/tasks/create
+#Content-Type: application/json
+#
+#{
+#  "contents" : "hello spring"
+#}
+
+#### POST
+POST http://localhost:8080/tasks/update
 Content-Type: application/json
 
 {
-  "contents" : "hello spring"
+  "id" : "3",
+  "contents" : "hello winter",
+  "isDone" : "true"
 }
