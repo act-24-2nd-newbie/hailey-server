@@ -30,10 +30,10 @@ public class TaskService {
         return this.taskRepository.save(newtask);
     }
 
-    public Task getTask(int taskId) {
-        Optional<Task> optionalTask = this.taskRepository.findById((long) taskId);
+    public Task getTask(Integer taskId) {
+        Optional<Task> optionalTask = this.taskRepository.findById( taskId);
         return optionalTask.orElseThrow(() -> new RuntimeException("Task not found"));
-//        return this.taskRepository.findById((long) taskId);
+
     }
 
     // 모든 Task 조회
@@ -41,12 +41,12 @@ public class TaskService {
         return taskRepository.findAll(); // 전체 Task 목록 반환
     }
 
-    public Task updateTask(int taskId, String content, boolean isDone) {
-        Optional<Task> optionalTask = this.taskRepository.findById((long) taskId);
+    public Task updateTask(Integer taskId, String content, boolean isDone) {
+        Optional<Task> optionalTask = this.taskRepository.findById(taskId);
         if (optionalTask.isEmpty()) {
             return null; // 또는 예외를 던지지 않고 null을 반환
         }
-        //optionalTask.orElseThrow(() -> new RuntimeException("Task not found"));
+
 
         optionalTask.get().setContents(content);
         optionalTask.get().setModifiedDate(LocalDateTime.now(ZoneOffset.UTC));
@@ -59,12 +59,9 @@ public class TaskService {
         taskRepository.deleteAll();
     }
 
-    public void deleteTask(int taskId) {
-        taskRepository.deleteById((long) taskId);
+    public void deleteTask(Integer taskId) {
+        taskRepository.deleteById(taskId);
     }
 
-//    public void deleteTask(Long id) {
-//        taskRepository.deleteById(id);
-//    }
 }
 

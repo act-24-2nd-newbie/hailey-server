@@ -21,27 +21,7 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-//    @GetMapping
-//    public List<TaskDto> getAllTasks() {
-//        return taskService.getAllTasks();
-//    }
-
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
-//        TaskDto taskDto = taskService.getTaskById(id);
-//        if (taskDto == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(taskDto);
-//    }
-
-//    @PostMapping
-//    public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
-//        TaskDto newTask = taskService.createTask(taskDto);
-//        return ResponseEntity.ok(newTask);
-//    }
-
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody String requestBody) throws JsonProcessingException {
         System.out.println(requestBody);
 
@@ -54,41 +34,36 @@ public class TaskController {
         return ResponseEntity.ok(createdTask); // 생성된 Task 반환
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getAllTasks();
         return ResponseEntity.ok(tasks); // Task 목록 반환
     }
 
-    @GetMapping("/get/{taskId}")
+    @GetMapping("/{taskId}")
     public Task getTask(@PathVariable int taskId) {
-//        TaskDto taskDto = this.taskService.getTask(taskId);
-//
-//        return new ResponseEntity<TaskDto>(taskDto, HttpStatus.OK);
+
         return taskService.getTask(taskId);
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping
     public ResponseEntity<Void> deleteAllTasks() {
         taskService.deleteAllTasks();
         return ResponseEntity.noContent().build();
     }
     
-    @GetMapping("/delete/{taskId}")
+    @DeleteMapping("/{taskId}")
     public ResponseEntity<Void> deleteTask(@PathVariable int taskId) {
         taskService.deleteTask(taskId);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/update")
-    public Task updateTask(@RequestBody String requestBody) throws JsonProcessingException {
+    @PutMapping("/{taskId}")
+    public Task updateTask(@PathVariable int taskId, @RequestBody String requestBody) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(requestBody);
         System.out.println("requestBody : "+requestBody);
-
-        int taskId = rootNode.get("id").asInt();
-        System.out.println("id: "+taskId);
 
         String content = rootNode.get("contents").asText();
         System.out.println("content: "+content);
@@ -98,15 +73,5 @@ public class TaskController {
         return taskService.updateTask(taskId, content, isDone);
     }
 
-    @GetMapping("/test")
-    public String getTask() {
-        return "test";
-    }
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-//        taskService.deleteTask(id);
-//        return ResponseEntity.noContent().build();
-//    }
 }
 
