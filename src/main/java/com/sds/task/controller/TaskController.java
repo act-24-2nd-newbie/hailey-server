@@ -15,11 +15,18 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"}, methods = {RequestMethod.GET, RequestMethod.POST})
+
 @RequestMapping("/tasks")
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
+
+    @GetMapping("/test")
+    public String test() {
+        return "hello.......";
+    }
 
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody String requestBody) throws JsonProcessingException {
