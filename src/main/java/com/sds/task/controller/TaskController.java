@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -77,7 +78,11 @@ public class TaskController {
 
         boolean isDone = rootNode.get("isDone").asBoolean();
         System.out.println("idDone: "+isDone);
-        return taskService.updateTask(taskId, content, isDone);
+
+        String modifiedDate = rootNode.get("modifiedDate").asText();
+        System.out.println("modifiedDate: "+ modifiedDate);
+
+        return taskService.updateTask(taskId, content, isDone, modifiedDate);
     }
 
 }
