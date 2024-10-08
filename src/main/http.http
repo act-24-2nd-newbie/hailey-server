@@ -1,0 +1,79 @@
+
+### POST
+POST http://localhost:8080/tasks
+Content-Type: application/json
+
+{
+"contents" : "hello summer"
+}
+
+### POST
+POST http://localhost:8080/tasks
+Content-Type: application/json
+
+{
+  "contents" : "hello spring"
+}
+
+### POST
+POST http://localhost:8080/tasks
+Content-Type: application/json
+
+{
+  "contents" : "hello fall"
+}
+
+### POST
+POST http://localhost:8080/tasks
+Content-Type: application/json
+
+{
+  "contents" : "hello winter"
+}
+
+### GET
+GET http://localhost:8080/tasks
+
+### GET
+GET http://localhost:8080/tasks/1
+
+### PUT
+PUT http://localhost:8080/tasks/1
+Content-Type: application/json
+
+{
+  "contents" : "hello winter update",
+  "isDone" : "true"
+}
+
+#### DELETE
+#DELETE http://localhost:8080/tasks/1
+#
+#### DELETE
+#DELETE http://localhost:8080/tasks
+
+#### POST
+#POST http://localhost:8080/tasks/create
+#Content-Type: application/json
+#
+#{
+#"contents" : "hello autum"
+#}
+
+#### POST
+#POST http://localhost:8080/tasks/create
+#Content-Type: application/json
+#
+#{
+#  "contents" : "hello spring"
+#}
+
+#### POST
+#POST http://localhost:8080/tasks/update
+#Content-Type: application/json
+#
+#{
+#  "id" : "3",
+#  "contents" : "hello winter",
+#  "isDone" : "true"
+#}
