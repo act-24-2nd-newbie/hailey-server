@@ -49,7 +49,7 @@ public class TaskController {
     }
 
     @GetMapping("/{taskId}")
-    public Task getTask(@PathVariable int taskId) {
+    public Task getTask(@PathVariable long taskId) {
 
         return taskService.getTask(taskId);
     }
@@ -61,13 +61,13 @@ public class TaskController {
     }
     
     @DeleteMapping("/{taskId}")
-    public ResponseEntity<Void> deleteTask(@PathVariable int taskId) {
+    public ResponseEntity<Void> deleteTask(@PathVariable long taskId) {
         taskService.deleteTask(taskId);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{taskId}")
-    public Task updateTask(@PathVariable int taskId, @RequestBody String requestBody) throws JsonProcessingException {
+    public Task updateTask(@PathVariable long taskId, @RequestBody String requestBody) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(requestBody);

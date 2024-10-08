@@ -35,7 +35,7 @@ public class TaskService {
         return this.taskRepository.save(newtask);
     }
 
-    public Task getTask(Integer taskId) {
+    public Task getTask(Long taskId) {
         Optional<Task> optionalTask = this.taskRepository.findById( taskId);
         return optionalTask.orElseThrow(() -> new RuntimeException("Task not found"));
 
@@ -46,7 +46,7 @@ public class TaskService {
         return taskRepository.findAll(); // 전체 Task 목록 반환
     }
 
-    public Task updateTask(Integer taskId, String content, boolean isDone, String modifiedDate) {
+    public Task updateTask(Long taskId, String content, boolean isDone, String modifiedDate) {
         Optional<Task> optionalTask = this.taskRepository.findById(taskId);
         if (optionalTask.isEmpty()) {
             return null; // 또는 예외를 던지지 않고 null을 반환
@@ -72,7 +72,7 @@ public class TaskService {
         taskRepository.deleteAll();
     }
 
-    public void deleteTask(Integer taskId) {
+    public void deleteTask(Long taskId) {
         taskRepository.deleteById(taskId);
     }
 

@@ -49,7 +49,7 @@ class TaskTest {
         
     }
 
-    public Task setUp(Integer id) {
+    public Task setUp(Long id) {
         Task task = new Task();
         task.setId(id);
         task.setContents("test");
@@ -63,7 +63,7 @@ class TaskTest {
     @DisplayName("#3 Read Task Test")
     @Transactional(rollbackFor = Exception.class)
     void readTask(){
-        Task task =  setUp(10);
+        Task task =  setUp(10L);
         this.taskRepository.flush();
 
         Task readTask = this.taskRepository.findById(task.getId()).orElseThrow(()-> new RuntimeException("Task not found"));
@@ -75,7 +75,7 @@ class TaskTest {
     @DisplayName("#4 Update Task Test")
     @Transactional(rollbackFor = Exception.class)
     void updateTask() {
-        Integer taskId = setUp(10).getId();
+        Long taskId = setUp(10L).getId();
 
         Task task = this.taskRepository.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found"));
         task.setContents("test_update");
@@ -89,7 +89,7 @@ class TaskTest {
     @DisplayName("#5 Delete Task Test")
     @Transactional(rollbackFor = Exception.class)
     void deleteTask() {
-        Integer taskId = setUp(11).getId();
+        Long taskId = setUp(11L).getId();
 
         Task task = this.taskRepository.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found"));
         taskRepository.delete(task);
@@ -103,8 +103,8 @@ class TaskTest {
     @DisplayName("#5 Delete All Tasks Test")
     @Transactional(rollbackFor = Exception.class)
     void deleteAllTasks() {
-        setUp(11);
-        setUp(12);
+        setUp(11L);
+        setUp(12L);
         this.taskRepository.flush();
 
         this.taskRepository.deleteAll();
