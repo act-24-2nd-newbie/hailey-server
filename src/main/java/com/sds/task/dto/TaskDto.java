@@ -1,18 +1,20 @@
 package com.sds.task.dto;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.sql.Time;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class TaskDto {
+    private Long id;
     private String contents;
     private Boolean isDone;
-    private Long id;
+    private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
-    private LocalDateTime createDate;
+
+
 }
