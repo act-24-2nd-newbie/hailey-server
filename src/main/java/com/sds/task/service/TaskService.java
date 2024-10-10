@@ -30,7 +30,7 @@ public class TaskService {
         Task newtask = new Task();
         newtask.setContents(content);
 
-        LocalDateTime nowUtc = LocalDateTime.now(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
+        LocalDateTime nowUtc = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         newtask.setCreatedDate(nowUtc);
         newtask.setModifiedDate(nowUtc);
 
@@ -54,7 +54,7 @@ public class TaskService {
         if (optionalTask.isEmpty()) {
             return null; // 또는 예외를 던지지 않고 null을 반환
         }
-        LocalDateTime nowUtc = LocalDateTime.now(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
+        LocalDateTime nowUtc = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
         Task task = optionalTask.get();
 
