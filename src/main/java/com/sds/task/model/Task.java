@@ -20,13 +20,17 @@ public class Task {
     @Column(nullable = false)
     private String contents;
 
+
+
     @Column(nullable = false)
-    private boolean isDone = false;
+    private Boolean isDone;
 
     @Column(nullable = false)
     private LocalDateTime modifiedDate;
 
     @Column( nullable = false)
-    private LocalDateTime createDate;
+    private LocalDateTime createdDate;
+
+
 
 }

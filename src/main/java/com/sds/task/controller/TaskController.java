@@ -31,7 +31,7 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody String requestBody) throws JsonProcessingException {
-        System.out.println(requestBody);
+
 
         // 매개변수는 requestBody를 String 형식으로 받아옴 -> JSON으로 변환하여 파싱 작업 필요
         ObjectMapper objectMapper = new ObjectMapper();
@@ -76,13 +76,12 @@ public class TaskController {
         String content = rootNode.get("contents").asText();
         System.out.println("content: "+content);
 
-        boolean isDone = rootNode.get("isDone").asBoolean();
-        System.out.println("idDone: "+isDone);
+//       boolean isDone = rootNode.get("isDone").asBoolean();
 
-        String modifiedDate = rootNode.get("modifiedDate").asText();
-        System.out.println("modifiedDate: "+ modifiedDate);
+        Boolean isDone = rootNode.has("isDone") && rootNode.get("isDone").asBoolean(false);
 
-        return taskService.updateTask(taskId, content, isDone, modifiedDate);
+
+        return taskService.updateTask(taskId, content, isDone);
     }
 
 }
