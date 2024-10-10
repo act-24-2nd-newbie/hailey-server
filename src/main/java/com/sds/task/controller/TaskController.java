@@ -80,9 +80,6 @@ public class TaskController {
 
         Boolean isDone = rootNode.has("isDone") && rootNode.get("isDone").asBoolean(false);
 
-        System.out.println("idDone: "+isDone);
-
-
 
         return taskService.updateTask(taskId, content, isDone);
     }

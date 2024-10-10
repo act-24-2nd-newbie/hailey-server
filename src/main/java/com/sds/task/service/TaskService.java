@@ -59,6 +59,11 @@ public class TaskService {
         Task task = optionalTask.get();
 
         if(!Objects.equals(content, task.getContents())) task.setModifiedDate(nowUtc);
+        System.out.println(isDone + " "+ task.getIsDone());
+        if(isDone != task.getIsDone()) {
+            task.setModifiedDate(nowUtc);
+            System.out.println(task.getModifiedDate());
+        }
 
         task.setContents(content);
         task.setIsDone(isDone);
