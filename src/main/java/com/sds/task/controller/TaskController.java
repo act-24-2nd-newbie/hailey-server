@@ -76,7 +76,7 @@ public class TaskController {
         String content = rootNode.get("contents").asText();
         System.out.println("content: "+content);
 
-//        boolean isDone = rootNode.get("isDone").asBoolean();
+//       boolean isDone = rootNode.get("isDone").asBoolean();
 
         Boolean isDone = rootNode.has("isDone") && rootNode.get("isDone").asBoolean(false);
 

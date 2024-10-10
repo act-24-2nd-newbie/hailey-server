@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class TaskDto {
     private String contents;
     private Boolean isDone;
-    private Integer id;
+    private Long id;
     private LocalDateTime modifiedDate;
     private LocalDateTime createDate;
 }

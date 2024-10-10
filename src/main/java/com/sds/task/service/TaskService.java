@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.sds.task.dto.TaskDto;
@@ -56,8 +57,10 @@ public class TaskService {
         LocalDateTime nowUtc = LocalDateTime.now(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
 
         Task task = optionalTask.get();
+
+        if(!Objects.equals(content, task.getContents())) task.setModifiedDate(nowUtc);
+
         task.setContents(content);
-        if(content != task.getContents())task.setModifiedDate(nowUtc);
         task.setIsDone(isDone);
 
         return this.taskRepository.save(task);
