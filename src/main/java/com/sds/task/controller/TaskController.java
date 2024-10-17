@@ -2,62 +2,55 @@ package com.sds.task.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
+import com.sds.task.dto.TaskDto;
 import com.sds.task.model.Task;
 import com.sds.task.service.TaskService;
-import com.sds.task.dto.TaskDto;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"}, methods = {RequestMethod.GET, RequestMethod.POST})
-
 @RequestMapping("/tasks")
 public class TaskController {
 
     @Autowired
-    private TaskService taskService;
-
-    @GetMapping("/test")
-    public String test() {
-        return "hello.......";
+    private ModelMapper modelMapper;
+    private final TaskService taskService;
+    public TaskController(TaskService taskService) {
+        super();
+        this.taskService = taskService;
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody String requestBody) throws JsonProcessingException {
-
-
-        // 매개변수는 requestBody를 String 형식으로 받아옴 -> JSON으로 변환하여 파싱 작업 필요
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode = objectMapper.readTree(requestBody);
-        JsonNode valueNode = rootNode.get("contents");
-        String content = valueNode.asText();
-        Task createdTask = taskService.createTask(content);
-        return ResponseEntity.ok(createdTask); // 생성된 Task 반환
+    public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
+        System.out.println("create Controller");
+        return ResponseEntity.ok(taskService.createTask(taskDto));
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTasks() {
-        List<Task> tasks = taskService.getAllTasks();
-        return ResponseEntity.ok(tasks); // Task 목록 반환
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
+        return ResponseEntity.ok(taskService.getAllTasks());
     }
 
     @GetMapping("/{taskId}")
-    public Task getTask(@PathVariable long taskId) {
-
-        return taskService.getTask(taskId);
+    public ResponseEntity<TaskDto> getTask(@PathVariable long taskId) {
+        return ResponseEntity.ok(taskService.getTaskById(taskId));
     }
 
+
+    // ApiResponse 만들어서 반환값 만들어보기
     @DeleteMapping
     public ResponseEntity<Void> deleteAllTasks() {
-        taskService.deleteAllTasks();
+        taskService.deleteTasks();
         return ResponseEntity.noContent().build();
+
     }
     
     @DeleteMapping("/{taskId}")
@@ -67,21 +60,8 @@ public class TaskController {
     }
 
     @PutMapping("/{taskId}")
-    public Task updateTask(@PathVariable long taskId, @RequestBody String requestBody) throws JsonProcessingException {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode = objectMapper.readTree(requestBody);
-        System.out.println("requestBody : "+requestBody);
-
-        String content = rootNode.get("contents").asText();
-        System.out.println("content: "+content);
-
-//       boolean isDone = rootNode.get("isDone").asBoolean();
-
-        Boolean isDone = rootNode.has("isDone") && rootNode.get("isDone").asBoolean(false);
-
-
-        return taskService.updateTask(taskId, content, isDone);
+    public ResponseEntity<TaskDto> updateTask(@PathVariable long taskId, @RequestBody TaskDto taskDto) {
+        return ResponseEntity.ok(taskService.updateTask(taskId, taskDto));
     }
 
 }

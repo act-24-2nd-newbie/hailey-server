@@ -3,14 +3,16 @@ package com.sds.task.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-@Setter
-@Getter
-@RequiredArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Table(name = "task")
 public class Task {
 
     @Id
@@ -20,16 +22,16 @@ public class Task {
     @Column(nullable = false)
     private String contents;
 
-
-
     @Column(nullable = false)
     private Boolean isDone;
 
-    @Column(nullable = false)
-    private LocalDateTime modifiedDate;
-
     @Column( nullable = false)
     private LocalDateTime createdDate;
+
+    @Column(nullable = true)
+    private LocalDateTime modifiedDate;
+
+
 
 
 
